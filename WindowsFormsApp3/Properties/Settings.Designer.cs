@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace drawingmaster.Properties
+namespace WindowsFormsApp3.Properties
 {
 
 
