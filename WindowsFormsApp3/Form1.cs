@@ -261,7 +261,9 @@ namespace WindowsFormsApp3
                         }
                          
                         Shape sh = new Shape(currentpoint, nextposition, button12.BackColor, Convert.ToInt32(numericUpDown1.Value), freeshapelist.ToArray());
+                        sh.choise = int.Parse(choise);
                         objectname(sh);
+                        freeshapelist.Clear();
                         mode = "";
                         minimizebutton.Focus();
                         drawingpicbox.Invalidate();
@@ -500,6 +502,11 @@ namespace WindowsFormsApp3
                 Layers.SetSelected(Layers.Items.Count - 1, true);
                 copy();
             }
+            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.V)
+            {
+                Layers.SetSelected(Layers.Items.Count - 1, true);
+                past();
+            }
             if (e.KeyCode==Keys.Delete)
             {
                 Layers.SetSelected(Layers.Items.Count - 1, true);
@@ -618,14 +625,14 @@ namespace WindowsFormsApp3
                 }
                 else if (item.Key.Contains("FreeShape"))
                 {
-                    if (choise == "1")
+                    if (item.Value.choise == 1)
                     {
                         if (item.Value.isFalled)
                             e.Graphics.FillPolygon(new SolidBrush(item.Value.shapecolor), item.Value.LongArr);
                         else
                             e.Graphics.DrawPolygon(new Pen(item.Value.pencolor, item.Value.size), item.Value.LongArr);
                     }
-                    else if(choise=="2")
+                    else if(item.Value.choise==2)
                     {
                         if (item.Value.isFalled)
                             e.Graphics.FillClosedCurve(new SolidBrush(item.Value.shapecolor), item.Value.LongArr);
@@ -650,6 +657,17 @@ namespace WindowsFormsApp3
             {
                 triangle();
                 g.FillPolygon(new SolidBrush(colorDialog1.Color), array);
+            }
+            if(mode=="Free Shape")
+            {
+                if (dic[Layers.SelectedItem.ToString()].choise == 1)
+                {
+                    g.FillPolygon(new SolidBrush(colorDialog1.Color), dic[Layers.SelectedItem.ToString()].LongArr);
+                }
+                if (dic[Layers.SelectedItem.ToString()].choise == 2)
+                {
+                    g.FillClosedCurve(new SolidBrush(colorDialog1.Color), dic[Layers.SelectedItem.ToString()].LongArr);
+                }
             }
             drawingpicbox.Invalidate();
             dic[Layers.SelectedItem.ToString()].shapecolor = colorDialog1.Color;

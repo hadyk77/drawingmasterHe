@@ -25,7 +25,7 @@ namespace WindowsFormsApp3
         public bool isFalled = false;
         public  Point[] arr = new Point[3];
         public Point[] LongArr = new Point[5];
-
+        public int choise;
         public Shape()
         {
 
